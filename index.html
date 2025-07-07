@@ -44,9 +44,12 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
+            visibility: hidden;
+            padding-bottom: 0;
         }
+        
         .faq-question.active + .faq-answer {
-            max-height: 200px; /* Adjust as needed for content */
+            max-height: 400px; /* Adjust as needed for content */
             transition: max-height 0.3s ease-in;
         }
         /* Custom message box styles */
@@ -278,7 +281,7 @@
                         Who is eligible for your insurance products?
                         <span class="text-primaryGreen-600 text-2xl">+</span>
                     </button>
-                    <div class="faq-answer px-6 pb-6 text-customGray-700">
+                    <div class="faq-answer px-6 text-customGray-700">
                         <p>Our insurance products are designed for a wide range of individuals and families. Eligibility often depends on factors such as age, health status, and specific policy requirements. We recommend scheduling a free consultation to discuss your individual situation and determine the best options for you.</p>
                     </div>
                 </div>
@@ -289,7 +292,7 @@
                         How does the free consultation work?
                         <span class="text-primaryGreen-600 text-2xl">+</span>
                     </button>
-                    <div class="faq-answer px-6 pb-6 text-customGray-700">
+                    <div class="faq-answer px-6 text-customGray-700">
                         <p>Our free consultation is a no-obligation meeting where we discuss your financial goals and protection needs. Our licensed advisors will assess your current situation, explain various insurance options, and recommend personalized solutions. It's a great opportunity to get your questions answered and understand how we can help secure your future.</p>
                     </div>
                 </div>
@@ -300,7 +303,7 @@
                         What support do you provide during claims?
                         <span class="text-primaryGreen-600 text-2xl">+</span>
                     </button>
-                    <div class="faq-answer px-6 pb-6 text-customGray-700">
+                    <div class="faq-answer px-6 text-customGray-700">
                         <p>We provide comprehensive support throughout the claims process. Our team will guide you through the necessary paperwork, communicate with the insurance provider on your behalf, and ensure a smooth and timely resolution. Our goal is to make the claims process as stress-free as possible for you and your family.</p>
                     </div>
                 </div>
@@ -311,7 +314,7 @@
                         Can I customize my insurance plan?
                         <span class="text-primaryGreen-600 text-2xl">+</span>
                     </button>
-                    <div class="faq-answer px-6 pb-6 text-customGray-700">
+                    <div class="faq-answer px-6 text-customGray-700">
                         <p>Absolutely! We specialize in providing customized insurance solutions. Our advisors work closely with you to understand your specific needs, budget, and long-term goals to create a plan that perfectly fits your requirements. We believe in tailored protection, not one-size-fits-all solutions.</p>
                     </div>
                 </div>
@@ -443,13 +446,17 @@
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
                 const plusIcon = button.querySelector('span');
-
+                
+                answer.style.visibility = 'visible';
+                answer.style.paddingBottom = '20px';
                 // Toggle active class on the question button
                 button.classList.toggle('active');
 
                 // Toggle the max-height for the answer
                 if (answer.style.maxHeight) {
                     answer.style.maxHeight = null;
+                    answer.style.visibility = 'hidden';
+                    answer.style.paddingBottom = '0px';
                     plusIcon.textContent = '+'; // Change to plus
                 } else {
                     // Close other open answers
@@ -458,10 +465,13 @@
                             otherAnswer.style.maxHeight = null;
                             otherAnswer.previousElementSibling.classList.remove('active');
                             otherAnswer.previousElementSibling.querySelector('span').textContent = '+';
+                            otherAnswer.style.visibility = 'hidden';
+                            otherAnswer.style.paddingBottom = '0px';
                         }
                     });
                     answer.style.maxHeight = answer.scrollHeight + "px";
                     plusIcon.textContent = '-'; // Change to minus
+                    
                 }
             });
         });
